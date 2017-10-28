@@ -7,13 +7,14 @@
 			*{padding: 0;margin:0;}
 			#ip{
 			background: red;
-			width: 250px;height: 250px;
+			width: 300px;height: 250px;
 			position: absolute;top: 0;left: 0;
 			float: left;
 			}
 		</style>
 		<script type="text/javascript">
 			window.onload=function(){
+			var close=document.getElementById('close');
 			var ip = document.getElementById('ip');		
 			var i=j=1;
 			var L = document.documentElement.clientWidth;//窗口宽
@@ -35,19 +36,47 @@
 			    ip.style.left = new_left + 'px';
 			    ip.style.top = new_top + 'px';	
 			   			    
-			    if (new_left == max_left) { i = -1; } 
-                if (new_left == 0){i=1;}
-                if (new_top == max_top) { j = -1; } 
-                if (new_top == 0){j=1;}               
+			    if (new_left >= max_left) { i = -1; } 
+                if (new_left <= 0){i=1;}
+                if (new_top >= max_top) { j = -1; } 
+                if (new_top <= 0){j=1;}               
                 			    
 			}
-			setInterval(run,10)			
+			var timer = setInterval(run,3);
+			
+			//给ip加鼠标移入事件,运动停止
+			ip.onmouseover=function(){
+				clearInterval(timer);
+			}
+			//给ip加鼠标移出事件，ip继续运动
+			ip.onmouseout=function(){
+				timer=setInterval(run,3);
+			}
+			
+			//点击close隐藏
+			close.onclick=function(){
+				ip.style.display='none';
+			}
+			
+			//窗口大小改变
+			window.onresize=function(){
+				ip.style.left=0 + 'px';
+				ip.style.top=0 +'px';	
+				x=1;
+				y=1;
+				var L = document.documentElement.clientWidth;//窗口宽
+			    var T = document.documentElement.clientHeight;//窗口高
+			    //可以到达的最大的top和left
+			    var max_top = T -ip.offsetHeight;
+			    var max_left = L -ip.offsetWidth;				
+			}
 			}
 		</script>
 	</head>
 	<body>
+	
 		<div id="ip">
-			
+			<img src="x.png" alt="关闭" title="关闭广告" id="close"/>
 		</div>		
 	</body>
 </html>
