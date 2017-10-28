@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{padding: 0;margin:0;}
+			#ip{
+			background: red;
+			width: 250px;height: 250px;
+			position: absolute;top: 0;left: 0;
+			float: left;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+			var ip = document.getElementById('ip');		
+			var i=j=1;
+			var L = document.documentElement.clientWidth;//窗口宽
+			var T = document.documentElement.clientHeight;//窗口高
+			//可以到达的最大的top和left
+			var max_top = T -ip.offsetHeight;
+			var max_left = L -ip.offsetWidth;
+			function run(){
+				
+			    //获得旧的left、top
+			    var old_left = ip.offsetLeft;
+			    var old_top = ip.offsetTop;	
+			    
+			    //计算新的left、top
+			    var new_left = old_left + i ;
+			    var new_top = old_top + j;
+			    
+			    //将新值复制过去
+			    ip.style.left = new_left + 'px';
+			    ip.style.top = new_top + 'px';	
+			   			    
+			    if (new_left == max_left) { i = -1; } 
+                if (new_left == 0){i=1;}
+                if (new_top == max_top) { j = -1; } 
+                if (new_top == 0){j=1;}               
+                			    
+			}
+			setInterval(run,10)			
+			}
+		</script>
+	</head>
+	<body>
+		<div id="ip">
+			
+		</div>		
+	</body>
+</html>
