@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" defer="defer">
+			window.onload = function(){
+				function ab(){
+				var lists = document.getElementById('daojishi').getElementsByTagName('span');
+				var A = new Date();
+				var a = new Date(2017,9,30,23,59,59);
+				var time;
+				time = a.getTime()-A.getTime();				
+				var hours = parseInt(time/(60*60*1000));
+				//目前的time，剩余的分钟数
+				time = time%(60*60*1000);
+				var mm = parseInt(time/(60*1000));
+				//剩余的秒数
+				time = time%(60*1000);
+				var ss = parseInt(time/1000);
+				lists[0].innerHTML = hours;								
+				lists[1].innerHTML = mm;
+				lists[2].innerHTML = ss;
+				}
+				ab();				
+				setInterval(ab,1000);
+			}
+		</script>
+	</head>
+	<body>
+		<p id="daojishi">距离活动结束还有
+			<span></span>时<span></span>分<span></span>秒
+		</p>
+	</body>
+</html>
