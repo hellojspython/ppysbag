@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			#hd li{list-style: none;float: left;height: 60px;width: 150px;display: block; margin:0 auto;line-height: 60px;text-align: center;margin:10px ;color: white;font-size: 32px;opacity:0.3;cursor: pointer;}
+			#hd{height: 400px;width: 510px;border: 2px solid black;margin: 0 auto;position: relative;}
+			#hd .con{height: 310px;width: 490px;position: absolute;left: 10px;top: 80px;display: none;}
+			#hd span{display: none;}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var hd = document.getElementById('hd');
+				var lis = hd.getElementsByTagName('li');
+				var cons = hd.getElementsByClassName('con');
+				for(var i=0;i<lis.length;i++){
+					lis[i].xuhao = i;
+					lis[i].onclick = function(){	
+						
+						//初始化
+						for(var j=0;j<lis.length;j++){
+							cons[j].style.display = 'none';
+							lis[j].style.opacity = 0.3;
+						}
+						
+						//点击情况
+						this.style.opacity=1;
+						cons[this.xuhao].style.display='block';
+						
+						//定时器
+						if(this.xuhao==0){
+							setTimeout(function(){
+								hd.getElementsByTagName('span')[0].style.display = 'block';
+							},2000)
+							setTimeout(function(){
+								hd.getElementsByTagName('span')[0].style.display = 'none';
+							},4000)
+						}
+						//定时器结束
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="hd">
+			<ul>
+				<li style="background: red;">昨天</li>
+				<li style="background: gray;">今天</li>
+				<li style="background: green;">明天</li>
+			</ul>
+			<div class="con" style="background:red ;"><span>hello&nbsp;HTML5!</span></div>
+			<div class="con" style="background:gray ;"></div>
+			<div class="con" style="background: forestgreen;"></div>
+		</div>			
+	</body>
+</html>
