@@ -1,0 +1,39 @@
+..<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>创建节点</title>
+		<script type="text/javascript">
+			function add(){
+				var li = document.createElement('li');//没有爹，人为造的
+                var mm = prompt();
+				var txt=document.createTextNode(mm);
+
+				document.getElementsByTagName('ul')[0].appendChild(li);
+				li.appendChild(txt);
+			}
+			function del(){
+				var lis = document.getElementsByTagName('li');
+				var ul = document.getElementsByTagName('ul')[0];
+				var del = document.getElementById('del');
+				var lastli = lis[lis.length-1];
+				if(lis.length<=0){
+					alert('已无可删除节点！')
+				}else{
+					ul.removeChild(lastli);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h2>创建节点</h2>
+		<input type="button" name="" id="" value="增加节点" onclick="add();" />
+		<input type="button" name="delete" id="delete" value="删除节点" onclick="del();"/>
+	    <ul>
+	    	<li>春天</li>
+	    	<li>夏天</li>
+	    	<li>秋天</li>
+	    	
+	    </ul>
+	</body>
+</html>
