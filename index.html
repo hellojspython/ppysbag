@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>轮播图</title>
+		<style type="text/css">
+			*{padding: 0;margin: 0;list-style: none;}
+			#lunbo{
+				width: 1200px;height: 535px;
+				/*border: 1px solid red;*/
+				margin: 20px auto;
+				position: relative;
+				
+			}
+			
+			/*pic开始*/
+			#lunbo .pic{
+				width: 1200px;height: 535px;
+			}
+			#lunbo .pic img{
+				width: 1200px;height: 535px;float: left;display: none;
+			}
+			/*pic结束*/
+			
+			/*dian开始*/
+			#lunbo .dian{
+				width: 120px;height: 12px;/*border: 1px solid black;*/
+				position: absolute;left: 45%; top: 90%;
+			}
+			 li{
+				width: 12px;height: 12px;
+				border-radius: 50%;
+				background-color:#646464 ;
+				float: left;
+				margin-left: 18px;
+			}
+			#lunbo .dian .point{background-color: darkred;}
+			/*dian结束*/
+			
+			/*箭头开始*/
+			#lunbo .jiantou{
+				width: 1200px;height: 55px;
+				position: absolute;
+				left: 0;top: 245px;
+				/*border: 1px solid red;*/
+			}
+			
+			#lunbo .jiantou .zuo a{
+				background: url(aa.png);
+				display: block;
+				width:30px;height: 50px;
+			}
+			#lunbo .jiantou .you a{
+				background: url(aa.png) 30px 0px;
+				display: block;
+				position: absolute;right: 0px;top: 0px;
+				width:30px;height: 50px;
+			}
+			/*箭头结束*/
+		</style>
+		
+		<script type="text/javascript">
+			window.onload = function(){
+				//抓元素
+				var lunbo = document.getElementById('lunbo');//lunbo
+				var imgs = lunbo.getElementsByClassName('pic')[0].getElementsByTagName('img');//img序列
+				var lis = lunbo.getElementsByClassName('dian')[0].getElementsByTagName('li');//li序列
+				var zuoa = lunbo.getElementsByClassName('jiantou')[0].getElementsByClassName('zuo')[0].getElementsByTagName('a')[0];//左边的箭头zuoa
+				var youa = lunbo.getElementsByClassName('jiantou')[0].getElementsByClassName('you')[0].getElementsByTagName('a')[0];//右边的箭头youa
+				var timer;//定义定时器
+				var x=0;//变量
+				
+				//定时器图片自动播放
+				function run(){
+					
+			    	//初始化
+			    	for(var i=0;i<4;i++){
+			    		imgs[i].style.display='none';//pic
+			    		lis[i].style.backgroundColor = '#646464';
+			    	};
+				    //图片自动切换
+				    imgs[x].style.display='block';
+				    lis[x].style.backgroundColor = 'darkred';
+					x++;
+					if(x==4){
+						x=0;
+					};										
+				
+				}
+			    timer = setInterval(run,2000);
+				
+				//鼠标移动到小远点运动到对应页面
+				function dian(){
+					for(var i=0;i<4;i++){
+						lis[i].xuhao=i;
+						//鼠标移入事件
+						lis[i].onmousemove = function(){							
+							clearInterval(timer);
+							//初始化
+			    	        for(var j=0;j<4;j++){
+			    		        imgs[j].style.display='none';//pic
+			    		        lis[j].style.backgroundColor = '#646464';
+			    	        };
+			    	        //切换
+			    	        imgs[this.xuhao].style.display='block';
+				            this.style.backgroundColor = 'darkred';
+						};
+						
+						//鼠标移出事件
+						lis[i].onmouseout =function(){
+							x=this.xuhao;
+							timer = setInterval(run,2000);						
+						};												
+												
+						lis[i].onmouseout =function(){
+							x=this.xuhao;
+							timer = setInterval(run,2000);						
+						};
+						
+					};
+					
+					//zuoa箭头上一页
+					zuoa.onclick = function(){
+						clearInterval(timer);
+						//初始化
+			    	    for(var j=0;j<4;j++){
+			    		    imgs[j].style.display='none';//pic
+			    		    lis[j].style.backgroundColor = '#646464';
+			    	    };
+					    x--;
+						if(x<0){x=3;};
+						imgs[x].style.display='block';
+				        lis[x].style.backgroundColor = 'darkred';
+					};
+					//youa箭头下一页
+					youa.onclick = function(){
+						clearInterval(timer);
+						//初始化
+			    	    for(var j=0;j<4;j++){
+			    		    imgs[j].style.display='none';//pic
+			    		    lis[j].style.backgroundColor = '#646464';
+			    	    };
+					    x++;
+						if(x>3){x=0;};
+						imgs[x].style.display='block';
+				        lis[x].style.backgroundColor = 'darkred';
+					};
+					
+					//箭头鼠标移入、移出时
+					//zuoa
+					zuoa.onmousemove = function(){						
+						this.style.backgroundPositionY = '-60px';
+						clearInterval(timer);
+					};
+					zuoa.onmouseout = function(){
+						this.style.backgroundPositionY = '0px';
+//						x=this.xuhao;
+						timer = setInterval(run,2000);
+					};
+					//youa
+					youa.onmousemove = function(){
+						clearInterval(timer);
+						this.style.backgroundPositionY = '-60px';
+					};
+					youa.onmouseout = function(){
+						this.style.backgroundPositionY = '0px';
+						timer = setInterval(run,2000);
+					};
+				}
+				dian();
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="lunbo">
+			<!--轮播图开始-->
+			<div class="pic">
+				<img src="1.jpg" style="display: block;"/>
+				<img src="2.jpg"/>
+				<img src="3.jpg"/>
+				<img src="4.jpg"/>
+			</div>
+			<!--轮播图结束-->
+			
+			<!--轮播小点开始-->
+			<div class="dian">
+				<ul>
+				    <li class="point"></li><li></li><li></li><li></li>
+			    </ul>
+			</div>
+			<!--轮播小点结束-->
+			
+			<!--导航箭头开始-->
+			<div class="jiantou">
+				<div class="zuo">
+					<!--阻止页面跳转-->
+					<a href="javascript:void(0);"></a>
+				</div>
+				<div class="you">
+					<!--阻止页面跳转-->
+					<a href="javascript:void(0);"></a>
+				</div>
+			</div>
+			<!--导航箭头结束-->
+		</div>
+	</body>
+</html>
